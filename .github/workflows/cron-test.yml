@@ -1,9 +1,18 @@
-name: P
+name: Cron Heartbeat
 on:
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/1 * * * *'   # 每分钟（GitHub 文档说最短 5 分钟，实测看它到底跑不跑）
+    - cron: '*/5 * * * *'   # 每 5 分钟（对照：这是文档允许的最短间隔）
+  push:
+    branches: [main]
+  workflow_dispatch:
 jobs:
-  t:
+  beat:
     runs-on: ubuntu-latest
     steps:
-      - run: echo hi
+      - name: Print time
+        run: |
+          echo "trigger   = ${{ github.event_name }} / ${{ github.event.schedule }}"
+          echo "UTC       = $(date -u '+%Y-%m-%d %H:%M:%S %a')"
+          echo "Beijing   = $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S %a')"
+          echo "run_id    = ${{ github.run_id }}"
