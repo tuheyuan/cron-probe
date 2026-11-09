@@ -1,0 +1,9 @@
+name: P
+on:
+  schedule:
+    - cron: '26 05 * * *'
+jobs:
+  t:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo hi
