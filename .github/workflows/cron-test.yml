@@ -1,7 +1,7 @@
 name: P
 on:
   schedule:
-    - cron: '26 05 * * *'
+    - cron: '*/5 * * * *'
 jobs:
   t:
     runs-on: ubuntu-latest
